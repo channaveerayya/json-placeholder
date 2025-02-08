@@ -58,9 +58,8 @@ const photosSlice = createSlice({
                 state.loading = true
             })
             .addCase(loadPhotos.fulfilled, (state, action) => {
-                // Concatenate the new photos to the existing array
                 state.photos = [...state.photos, ...action.payload.photos]
-                state.totalPhotos = action.payload.totalPhotos  // Assuming the API returns total photos count
+                state.totalPhotos = action.payload.totalPhotos 
                 state.currentPage = action.payload.currentPage
                 state.loading = false
             })

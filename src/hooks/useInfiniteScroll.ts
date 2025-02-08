@@ -8,7 +8,6 @@ const useInfiniteScroll = (loadMore: () => void, isLoading: boolean, hasMore: bo
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
         const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
         const isBottom = scrollHeight === Math.round(scrollTop + clientHeight);
-console.log("isBottom",isBottom)
         if (isBottom) {
             setIsAtBottom(true);
         } else {
@@ -19,7 +18,6 @@ console.log("isBottom",isBottom)
     };
 
     const loadOnScroll = useCallback(() => {
-      console.log(isAtBottom)
         if (isAtBottom && !isLoading && hasMore) {
             loadMore();
         }
