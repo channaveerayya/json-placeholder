@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { loadPosts, createNewPost, editPost, removePost } from "../slices/postsSlice";
+import { loadPosts, createNewPost, removePost } from "../slices/postsSlice";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { Card, CardContent, Typography, Grid, Container, CircularProgress, IconButton, TextField, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -8,7 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const Posts: React.FC = () => {
     const dispatch = useAppDispatch();
     const { posts, loading } = useAppSelector((state) => state.posts);
-    const [editMode, setEditMode] = useState<boolean>(false);
+    const [, setEditMode] = useState<boolean>(false);
     const [newPost, setNewPost] = useState<{ title: string; body: string; userId: number }>({
         title: '',
         body: '',
@@ -26,11 +26,6 @@ const Posts: React.FC = () => {
 
     const handleDeletePost = (id: number) => {
         dispatch(removePost(id));
-    };
-
-    const handleEditPost = (id: number, updatedPost: any) => {
-        dispatch(editPost({ id, updatedPost }));
-        setEditMode(false);
     };
 
     if (loading) {
