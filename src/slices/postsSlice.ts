@@ -11,17 +11,26 @@ interface post {
 
 interface postsState {
     posts: post[]
-    loading: boolean
+    loading: boolean,
+    currentPage: number
+    totalPosts: number
+    pageSize: number
 }
 
 const initialState: postsState = {
     posts: [],
     loading: false,
+    currentPage: 1,
+    totalPosts: 0,
+    pageSize: 20,  
 }
 
-export const loadPosts = createAsyncThunk("posts/fetchPosts", async () => {
-    return await fetchPosts()
-})
+export const loadPosts = createAsyncThunk(
+    "photos/fetchPosts",
+    async ({ page, pageSize }: { page: number; pageSize: number }) => {
+        return await fetchPosts(page, pageSize)
+    }
+)
 
 export const createNewPost = createAsyncThunk('posts/createPost', async (newPost: any) => {
     return await createPost(newPost)
@@ -45,7 +54,9 @@ const postsSlice = createSlice({
                 state.loading = true
             })
             .addCase(loadPosts.fulfilled, (state, action) => {
-                state.posts = action.payload
+                state.posts = [...state.posts, ...action.payload.posts]
+                state.totalPosts = action.payload.totalPosts 
+                state.currentPage = action.payload.currentPage
                 state.loading = false
             })
             // Create post
