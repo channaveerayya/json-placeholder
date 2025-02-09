@@ -24,7 +24,6 @@ export const createPhoto = async (newPhoto: Photo) => {
 };
 
 export const updatePhoto = async (updatedPhoto: Photo) => {
-  console.log("updatePhoto",updatePhoto)
   const response = await api.post(`/photos/${updatedPhoto.id}`, updatedPhoto);
   return response.data; 
 };

@@ -6,17 +6,17 @@ const NavBar: React.FC = () => {
     return (
         <AppBar position="static">
             <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="h6" component={Link} to="/" sx={{ textDecoration: "none", color: "white" }}>
-                    MyApp
+                <Typography sx={{ typography: { sm: 'h6', xs: 'body1' },textDecoration: "none", color: "white"  }} component={Link} to="/">
+                    JSON Placeholder
                 </Typography>
-                <Box sx={{ display: "flex", gap: 2, ml: "auto", alignItems: "center" }}>
+                <Box sx={{ display: "flex", gap: 1, ml: "auto", alignItems: "center" }}>
                     <Button component={Link} to="/" color="inherit">
                     Posts
                     </Button>
                     <Button component={Link} to="/photos" color="inherit">
                         Photos
                     </Button>
-                    <Typography variant="body1">John Doe</Typography>
+                    <Typography sx={{ typography: { sm: 'body1', xs: 'body2' } }}>John Doe</Typography>
                     <Avatar alt="John Doe" src="https://i.pravatar.cc/40" />
                 </Box>
             </Toolbar>
