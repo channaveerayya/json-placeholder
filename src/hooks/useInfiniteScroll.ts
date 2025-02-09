@@ -19,7 +19,7 @@ const useInfiniteScroll = (loadMore: () => void, isLoading: boolean, hasMore: bo
     useEffect(() => {
         if (!isLoading && containerRef.current) {
             // Maintain the last scroll position after new items load
-            containerRef.current.scrollTop = prevScrollHeight.current;
+            containerRef.current.scrollTop = prevScrollHeight.current - 200;
             isFetching.current = false;
             console.log("scroll Height",containerRef.current.scrollHeight ,prevScrollHeight.current)
 
