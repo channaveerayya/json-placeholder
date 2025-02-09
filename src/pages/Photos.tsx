@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { loadPhotos } from "../slices/photosSlice"
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector, useDebounce } from "../hooks"
 import useInfiniteScroll from "../hooks/useInfiniteScroll"
 import PhotoList from "../components/PhotoList"
 import { CircularProgress, Container } from "@mui/material"
@@ -17,28 +17,24 @@ const Photos: React.FC = () => {
             setHasMore(false)
         }
     }
-
-    const { handleScroll, containerRef } = useInfiniteScroll(loadMore, loading, hasMore)
+    const debouncedLoadMore = useDebounce(loadMore, 1000);
+    const { handleScroll, containerRef } = useInfiniteScroll(debouncedLoadMore, loading, hasMore)
 
     useEffect(() => {
         dispatch(loadPhotos({ page: 1, pageSize }))
     }, [dispatch, pageSize])
 
-    if (loading) {
-        return (
-            <Container maxWidth="lg" sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
-                <CircularProgress />
-            </Container>
-        )
-    }
     return (
         <div
             ref={containerRef}
             onScroll={handleScroll}
-            style={{ maxHeight: "80vh", overflowY: "auto" }}>
+            style={{ maxHeight: "95vh", overflowY: "auto" }}>
             <h1>Photos {photos.length} </h1>
             <PhotoList photos={photos} />
-            {loading && <p>Loading more...</p>}
+            
+            {hasMore && <Container maxWidth="lg" sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100px" }}>
+                <CircularProgress />
+            </Container>}
             {!hasMore && <p>No more photos available</p>}
         </div>
     )
