@@ -50,7 +50,7 @@ const postsSlice = createSlice({
             })
             // Create post
             .addCase(createNewPost.fulfilled, (state, action) => {
-                state.posts.push(action.payload)
+                state.posts.unshift(action.payload)
             })
             // Edit post
             .addCase(editPost.fulfilled, (state, action) => {

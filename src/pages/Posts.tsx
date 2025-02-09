@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { loadPosts, createNewPost, removePost } from "../slices/postsSlice";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { Card, CardContent, Typography, Grid, Container, CircularProgress, IconButton, TextField, Button } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Typography, Grid, Container, CircularProgress, TextField, Button } from "@mui/material";
 import BottomActionsCard from "../components/BottomActionsCard"
 
 const Posts: React.FC = () => {
@@ -61,7 +59,7 @@ const Posts: React.FC = () => {
             <Grid container spacing={4} sx={{ pt: 4 }}>
                 {posts.map((post) => (
                     <Grid item xs={12} sm={6} md={3} key={post.id}>
-                        <BottomActionsCard post={post}/>
+                        <BottomActionsCard post={post} handleDeletePost={handleDeletePost} setEditMode={setEditMode}/>
                     </Grid>
                 ))}
             </Grid>
